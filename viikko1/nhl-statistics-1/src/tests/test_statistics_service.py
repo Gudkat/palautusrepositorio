@@ -1,6 +1,8 @@
 import unittest
 from statistics_service import StatisticsService
 from player import Player
+from statistics_service import SortBy
+
 
 class PlayerReaderStub:
     def get_players(self):
@@ -12,12 +14,13 @@ class PlayerReaderStub:
             Player("Gretzky", "EDM", 35, 89)
         ]
 
+
 class TestStatisticsService(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.stats = StatisticsService(
             PlayerReaderStub())
-        
+
     def test_creating_constructor(self):
         self.assertTrue(self.stats)
         self.assertTrue(self.stats._players)
@@ -36,16 +39,35 @@ class TestStatisticsService(unittest.TestCase):
         self.assertEqual(len(self.stats.team("PHI")), 0)
         self.assertEqual(self.stats.team("DET")[0].name, "Yzerman")
 
-    def test_top(self):
-        self.assertEqual(len(self.stats.top(1)), 1)
-        self.assertEqual(len(self.stats.top(2)), 2)
-        self.assertEqual(len(self.stats.top(3)), 3)
-        self.assertEqual(len(self.stats.top(4)), 4)
-        self.assertEqual(len(self.stats.top(5)), 5)
-        self.assertRaises(IndexError, self.stats.top, 6)
-        self.assertEqual(self.stats.top(1)[0].name, "Gretzky")
-        self.assertEqual(self.stats.top(2)[1].name, "Lemieux")
-        self.assertEqual(self.stats.top(3)[2].name, "Yzerman")
-        self.assertEqual(self.stats.top(4)[3].name, "Kurri")
-        self.assertEqual(self.stats.top(5)[4].name, "Semenko")
+    def test_top_points(self):
+        all = self.stats.top(5, SortBy.POINTS)
+        self.assertEqual(len(self.stats.top(1, SortBy.POINTS)), 1)
+        self.assertEqual(len(all), 5)
+        self.assertRaises(IndexError, self.stats.top, 6, SortBy.POINTS)
+        corr = ["Gretzky", "Lemieux", "Yzerman", "Kurri", "Semenko"]
 
+        for i in range(5):
+            self.assertEqual(all[i].name, corr[i])
+
+    def test_top_assists(self):
+        all = self.stats.top(5, SortBy.ASSISTS)
+        self.assertEqual(len(self.stats.top(1, SortBy.ASSISTS)), 1)
+        self.assertEqual(len(all), 5)
+        self.assertRaises(IndexError, self.stats.top, 6, SortBy.ASSISTS)
+        corr = ["Gretzky", "Yzerman", "Lemieux", "Kurri", "Semenko"]
+
+        for i in range(5):
+            self.assertEqual(all[i].name, corr[i])
+
+    def test_top_goals(self):
+        all = self.stats.top(5, SortBy.GOALS)
+        self.assertEqual(len(self.stats.top(1, SortBy.GOALS)), 1)
+        self.assertEqual(len(all), 5)
+        self.assertRaises(IndexError, self.stats.top,6, SortBy.GOALS)
+        corr = ["Lemieux", "Yzerman", "Kurri", "Gretzky", "Semenko"]
+
+        for i in range(5):
+            self.assertEqual(all[i].name, corr[i])
+
+    def test_faulty_sort(self):
+            self.assertIsNone(self.stats.top(5, "Faulty argument"))
