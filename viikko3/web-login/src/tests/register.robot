@@ -4,10 +4,12 @@ Resource            resource.robot
 Suite Setup         Open And Configure Browser
 Suite Teardown      Close Browser
 Test Setup          Go To Register Page
+Test Teardown       Reset Application
 
 
 *** Test Cases ***
 Register With Valid Credentials
+    Reset Application
     Set Username    kalle
     Set Password    kalle123
     Set Password Confimation    kalle123
@@ -34,6 +36,22 @@ Register With Valid Username And Invalid Password
     Set Password Confimation    kalle
     Submit Credentials
     Registration Should Fail With Message    Password must be at least eight symbols long and contain not only letters
+
+Login After Successful Registration
+    Set Username    kalle
+    Set Password    kalle123
+    Set Password Confimation    kalle123
+    Submit Credentials
+    Welcome Should Be Open
+    Click Link    Continue to main page
+    Main Page Should Be Open
+    Click Button    Logout
+    Login Page Should Be Open
+    Set Username    kalle
+    Set Password    kalle123
+    Click Button    Login
+    Main Page Should Be Open
+
 
 *** Keywords ***
 Submit Credentials
