@@ -1,0 +1,10 @@
+.vscode
+.DS_Store
+__pycache__/
+.pytest_cache/
+__pyache__/
+.pytest_cache/
+.coverage
+htmlcov/
+.vscode/
+poetry.lock
