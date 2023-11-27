@@ -3,6 +3,7 @@ from kirjanpito import kirjanpito
 from varasto import varasto
 from pankki import pankki
 from viitegeneraattori import viitegeneraattori
+from ostoskori import Ostoskori
 
 def main():
     # käytetään valmiiksi luotuja "oletusarvoisia" varasto-, pankki- ja viitegeneraattoriolioita
