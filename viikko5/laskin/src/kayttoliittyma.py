@@ -1,5 +1,6 @@
 from enum import Enum
 from tkinter import ttk, constants, StringVar
+from komentotehdas import Komentotehdas
 
 
 class Komento(Enum):
@@ -13,6 +14,13 @@ class Kayttoliittyma:
     def __init__(self, sovelluslogiikka, root):
         self._sovelluslogiikka = sovelluslogiikka
         self._root = root
+
+        self.komennot = {
+            Komento.SUMMA: "summa",
+            Komento.EROTUS: "erotus",
+            Komento.NOLLAUS: "nollaus",
+            Komento.KUMOA: "kumoa"
+        }
 
     def kaynnista(self):
         self._arvo_var = StringVar()
@@ -48,7 +56,8 @@ class Kayttoliittyma:
         )
 
         tulos_teksti.grid(columnspan=4)
-        self._syote_kentta.grid(columnspan=4, sticky=(constants.E, constants.W))
+        self._syote_kentta.grid(
+            columnspan=4, sticky=(constants.E, constants.W))
         summa_painike.grid(row=2, column=0)
         erotus_painike.grid(row=2, column=1)
         self._nollaus_painike.grid(row=2, column=2)
@@ -62,14 +71,8 @@ class Kayttoliittyma:
         except Exception:
             pass
 
-        if komento == Komento.SUMMA:
-            self._sovelluslogiikka.plus(arvo)
-        elif komento == Komento.EROTUS:
-            self._sovelluslogiikka.miinus(arvo)
-        elif komento == Komento.NOLLAUS:
-            self._sovelluslogiikka.nollaa()
-        elif komento == Komento.KUMOA:
-            pass
+        Komentotehdas(self._sovelluslogiikka).suorita(
+            self.komennot[komento], arvo)
 
         self._kumoa_painike["state"] = constants.NORMAL
 
