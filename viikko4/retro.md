@@ -15,3 +15,5 @@ Mahdolliset isot tiimit jaetaan pienryhmiin. Sitten kerätään kommentteja tai 
 ## Glad, Sad, Mad
 
 Tässä retrospektiivitekniikassa ideana on kerätä tiimiltä kommentteja viimeiseen sprinttiin liittyen. Kommentit eivät liity pelkästään tiimin omaan toimintaan. Jokainen kommentti sijoitetaan johonkin seuraavista osioista: Mad, Sad Glad. Sad ja Mad osioden erotus on se, että Mad osioon sijoitetaan kommentit, jotka liittyvät ulkopuolisiin tekijöihin, kun taas Sad osioon sijoitetaan kommentit, jotka liittyvät tiimin omaan toimintaan. Sitten äänestetään mistä halutaan keskustella. Keskustelu aloitetaan eniten ääniä saaneista kommenttiryhmistä ja se jatkuu enintään tunnin ajan. 
+
+## Retrospective for Sprint 2
