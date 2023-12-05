@@ -1,6 +1,6 @@
 from statistics import Statistics
 from player_reader import PlayerReader
-from matchers import And, HasAtLeast, PlaysIn, Not, HasFewerThan, All
+from matchers import *
 
 
 def main():
@@ -30,6 +30,20 @@ def main():
 
     filtered_with_all = stats.matches(All())
     assert (len(filtered_with_all) == 1058)
+
+    matcher = And(
+        HasAtLeast(70, "points"),
+        Or(
+            PlaysIn("NYR"),
+            PlaysIn("FLA"),
+            PlaysIn("BOS")
+        )
+    )
+
+
+    print("\nOR matcher:")
+    for player in stats.matches(matcher):
+        print(player)
 
 
 if __name__ == "__main__":
